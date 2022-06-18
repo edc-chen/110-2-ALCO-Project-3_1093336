@@ -12,14 +12,17 @@
   - DIV     : 8 cycles
 * **Cycle** 完成後下次 **Cycle** 可以 **Write Result** 
 * **Write Result** 的值下次 **Cycle** 可以使用
-* **AUL** 空出後下次 **Cycle** 可以 **Dispatch**
+* **ALU** 空出後下次 **Cycle** 可以 **Dispatch**
 
 
 ## 資料說明
 * **test.txt** 的輸出為 **cout.txt**  
 
 ## 輸出範例
-輸出資料僅輸出有完成Dispatch或者是內容有變化之Cycle
+輸出資料僅輸出有完成Dispatch或者是內容有變化之Cycle                    
+RS1.2.3為ADD/SUB的暫存，共3個                     
+RS4.5為MUL/DIV的暫存，共2個                     
+
 ```
 ----------IN File----------
 ADDI F1, F2, 1
