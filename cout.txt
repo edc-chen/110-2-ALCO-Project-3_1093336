@@ -188,6 +188,36 @@ RS5 |    * |    4 |    6 |
     ----------------------
 BUFFER: empty
 
+Cycle: 7
+   _ RF __
+F1 |   0 |
+F2 |   2 |
+F3 |   4 |
+F4 |   6 |
+F5 |   8 |
+   -------
+
+   _ RAT __
+F1 |  RS4 |
+F2 |  RS3 |
+F3 |      |
+F4 |  RS1 |
+F5 |      |
+   --------
+
+    _ RS _________________
+RS1 |    + |  RS4 |    2 |
+RS2 |    - |    4 |    6 |
+RS3 |    + |    6 |  RS5 |
+    ----------------------
+BUFFER: (RS2 Dispatch Done)4 - 6 Next Cycle Can Write Result
+
+    ______________________
+RS4 |    / |    4 |    2 |
+RS5 |    * |    4 |    6 |
+    ----------------------
+BUFFER: empty
+
 Cycle: 8
    _ RF __
 F1 |   0 |
@@ -210,13 +240,43 @@ RS1 |    + |  RS4 |    2 |
 RS2 |      |      |      |
 RS3 |    + |    6 |  RS5 |
     ----------------------
-BUFFER: (RS2 Dispatch Done)   Next Cycle Can Write Result
+BUFFER: empty
 
     ______________________
 RS4 |    / |    4 |    2 |
 RS5 |    * |    4 |    6 |
     ----------------------
 BUFFER: empty
+
+Cycle: 12
+   _ RF __
+F1 |   0 |
+F2 |   2 |
+F3 |   4 |
+F4 |   6 |
+F5 |   8 |
+   -------
+
+   _ RAT __
+F1 |  RS4 |
+F2 |  RS3 |
+F3 |      |
+F4 |  RS1 |
+F5 |      |
+   --------
+
+    _ RS _________________
+RS1 |    + |  RS4 |    2 |
+RS2 |      |      |      |
+RS3 |    + |    6 |  RS5 |
+    ----------------------
+BUFFER: empty
+
+    ______________________
+RS4 |    / |    4 |    2 |
+RS5 |    * |    4 |    6 |
+    ----------------------
+BUFFER: (RS4 Dispatch Done)4 / 2 Next Cycle Can Write Result
 
 Cycle: 13
    _ RF __
@@ -246,7 +306,7 @@ BUFFER: (RS1 Dispatch)2 + 2
 RS4 |      |      |      |
 RS5 |    * |    4 |    6 |
     ----------------------
-BUFFER: (RS4 Dispatch Done)   Next Cycle Can Write Result
+BUFFER: (RS5 Dispatch)4 * 6 
 
 Cycle: 14
    _ RF __
@@ -276,7 +336,7 @@ BUFFER: empty
 RS4 |    * |    8 |    8 |
 RS5 |    * |    4 |    6 |
     ----------------------
-BUFFER: (RS5 Dispatch)4 * 6 
+BUFFER: empty
 
 Cycle: 15
    _ RF __
@@ -338,6 +398,66 @@ RS5 |    * |    4 |    6 |
     ----------------------
 BUFFER: empty
 
+Cycle: 17
+   _ RF __
+F1 |   2 |
+F2 |   2 |
+F3 |   4 |
+F4 |   4 |
+F5 |   8 |
+   -------
+
+   _ RAT __
+F1 |  RS2 |
+F2 |  RS3 |
+F3 |      |
+F4 |      |
+F5 |  RS4 |
+   --------
+
+    _ RS _________________
+RS1 |      |      |      |
+RS2 |    + |    4 |    4 |
+RS3 |    + |    6 |  RS5 |
+    ----------------------
+BUFFER: empty
+
+    ______________________
+RS4 |    * |    8 |    8 |
+RS5 |    * |    4 |    6 |
+    ----------------------
+BUFFER: (RS5 Dispatch Done)4 * 6 Next Cycle Can Write Result
+
+Cycle: 18
+   _ RF __
+F1 |   2 |
+F2 |   2 |
+F3 |   4 |
+F4 |   4 |
+F5 |   8 |
+   -------
+
+   _ RAT __
+F1 |  RS2 |
+F2 |  RS3 |
+F3 |      |
+F4 |      |
+F5 |  RS4 |
+   --------
+
+    _ RS _________________
+RS1 |      |      |      |
+RS2 |    + |    4 |    4 |
+RS3 |    + |    6 |   24 |
+    ----------------------
+BUFFER: (RS2 Dispatch Done)4 + 4 Next Cycle Can Write Result
+
+    ______________________
+RS4 |    * |    8 |    8 |
+RS5 |      |      |      |
+    ----------------------
+BUFFER: (RS4 Dispatch)8 * 8 
+
 Cycle: 19
    _ RF __
 F1 |   8 |
@@ -360,21 +480,21 @@ RS1 |      |      |      |
 RS2 |      |      |      |
 RS3 |    + |    6 |   24 |
     ----------------------
-BUFFER: (RS2 Dispatch Done)   Next Cycle Can Write Result
+BUFFER: (RS3 Dispatch)6 + 24 
 
     ______________________
 RS4 |    * |    8 |    8 |
 RS5 |      |      |      |
     ----------------------
-BUFFER: (RS4 Dispatch)8 * 8 
+BUFFER: empty
 
-Cycle: 24
+Cycle: 21
    _ RF __
 F1 |   8 |
 F2 |   2 |
 F3 |   4 |
 F4 |   4 |
-F5 |  64 |
+F5 |   8 |
    -------
 
    _ RAT __
@@ -382,7 +502,7 @@ F1 |      |
 F2 |  RS3 |
 F3 |      |
 F4 |      |
-F5 |      |
+F5 |  RS4 |
    --------
 
     _ RS _________________
@@ -390,15 +510,45 @@ RS1 |      |      |      |
 RS2 |      |      |      |
 RS3 |    + |    6 |   24 |
     ----------------------
-BUFFER: (RS3 Dispatch)6 + 24 
+BUFFER: (RS3 Dispatch Done)6 + 24 Next Cycle Can Write Result
 
     ______________________
-RS4 |      |      |      |
+RS4 |    * |    8 |    8 |
 RS5 |      |      |      |
     ----------------------
-BUFFER: (RS4 Dispatch Done)   Next Cycle Can Write Result
+BUFFER: empty
 
-Cycle: 27
+Cycle: 22
+   _ RF __
+F1 |   8 |
+F2 |  30 |
+F3 |   4 |
+F4 |   4 |
+F5 |   8 |
+   -------
+
+   _ RAT __
+F1 |      |
+F2 |      |
+F3 |      |
+F4 |      |
+F5 |  RS4 |
+   --------
+
+    _ RS _________________
+RS1 |      |      |      |
+RS2 |      |      |      |
+RS3 |      |      |      |
+    ----------------------
+BUFFER: empty
+
+    ______________________
+RS4 |    * |    8 |    8 |
+RS5 |      |      |      |
+    ----------------------
+BUFFER: (RS4 Dispatch Done)8 * 8 Next Cycle Can Write Result
+
+Cycle: 23
    _ RF __
 F1 |   8 |
 F2 |  30 |
@@ -420,11 +570,11 @@ RS1 |      |      |      |
 RS2 |      |      |      |
 RS3 |      |      |      |
     ----------------------
-BUFFER: (RS3 Dispatch Done)   Next Cycle Can Write Result
+BUFFER: empty
 
     ______________________
 RS4 |      |      |      |
 RS5 |      |      |      |
     ----------------------
-BUFFER: (RS5 Dispatch Done)   Next Cycle Can Write Result
+BUFFER: empty
 

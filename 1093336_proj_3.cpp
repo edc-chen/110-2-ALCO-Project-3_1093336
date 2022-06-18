@@ -1,14 +1,13 @@
 #include<bits/stdc++.h>
-//#define cout fout //debug
+#define cout fout //debug
 using namespace std;
 const int RsCycle[4] = { 2,2,4,8 };//add,sub,mul,div
-const string instType[4] = { "+", "-", "*", "/" }, rsType[6] = { "", "RS1", "RS2", "RS3", "RS4", "RS5" };
 bool RSOut[6] = { false, false, false, false, false, false }, RSStart[6] = { false, false, false, false, false, false }, RSing[6] = { false, false, false, false, false, false };
 string RS[6][3] = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" }, RAT[6] = { "", "", "", "", "", "" };
 int RF[6] = { 0,0,2,4,6,8 }, RScyced[6] = { 0,0,0,0,0,0 };
 map< string, int > basic;
 vector< vector< string > >  code;
-//ofstream fout("cout.txt");
+ofstream fout("cout.txt");
 void build() {
 	basic["ADDI"] = 0, basic["ADD"] = 0;
 	basic["SUB"]  = 1, basic["MUL"] = 2;
@@ -32,59 +31,50 @@ void print() {
 		cout << "RS" << i << " |" << setw(5) << RS[i][0] << " |" << setw(5) << RS[i][1] << " |" << setw(5) << RS[i][2] << " |\n";	
 	cout << "    ----------------------\n";
 	bool out = false;
+	for (int j = 1; j < 4; j++)
+		if (RSing[j] == true)
+			out = true;
 	for (int i = 1; i < 4; i++) {
 		if (RSOut[i]) {
 			cout << "BUFFER: (RS" + to_string(i) << " Dispatch Done)" << RS[i][1] << " " << RS[i][0] << " " << RS[i][2] << " Next Cycle Can Write Result\n\n";
 			RSOut[i] = false;
 			break;
 		}
-		if (RS[i][1].find("RS") == string::npos && RS[i][2].find("RS") == string::npos && RScyced[i] == 0 && !RSStart[i] && RS[i][1] != "" && RS[i][2] != "" && !RSing[i]) {
-			for (int j = 1; j < 4; j++) {
-				if (RSing[j] == true) 
-					out = true;				
-			}
-			if (out) {
-				cout << "BUFFER: empty\n\n";
-				break;
-			}
+		if (RS[i][1].find("RS") == string::npos && RS[i][2].find("RS") == string::npos && RScyced[i] == 0 && !RSStart[i] && RS[i][1] != "" && RS[i][2] != "" && !RSing[i] && !out) {
 			cout << "BUFFER: (RS" + to_string(i) << " Dispatch)" << RS[i][1] << " " << RS[i][0] << " " << RS[i][2] << " \n\n";
 			RScyced[i] = RsCycle[basic[RS[i][0]]];
 			RSing[i] = true;
 			break;
 		}
 		else 
-			if (i == 3) 
-				cout << "BUFFER: empty\n\n";					
+			if (i == 3)
+				cout << "BUFFER: empty\n\n";		
 	}
 	cout << "    ______________________\n";
 	for (int i = 4; i < 6; i++) 
 		cout << "RS" << i << " |" << setw(5) << RS[i][0] << " |" << setw(5) << RS[i][1] << " |" << setw(5) << RS[i][2] << " |\n";
 	cout << "    ----------------------\n";
 	out = false;
+	for (int j = 4; j < 6; j++) 
+		if (RSing[j] == true) 
+			out = true;
+	
 	for (int i = 4; i < 6; i++) {
 		if (RSOut[i]) {
 			cout << "BUFFER: (RS" + to_string(i) << " Dispatch Done)" << RS[i][1] << " " << RS[i][0] << " " << RS[i][2] << " Next Cycle Can Write Result\n\n";
 			RSOut[i] = false;
 			break;
 		}
-		if (RS[i][1].find("RS") == string::npos && RS[i][2].find("RS") == string::npos && RScyced[i] == 0 && !RSStart[i] && RS[i][1] != "" && RS[i][2] != "" && !RSing[i]) {
-			for (int j = 4; j < 6; j++) {
-				if (RSing[j] == true) 
-					out = true;
-			}
-			if (out) {
-				cout << "BUFFER: empty\n\n";
-				break;
-			}
+		if (RS[i][1].find("RS") == string::npos && RS[i][2].find("RS") == string::npos && RScyced[i] == 0 && !RSStart[i] && RS[i][1] != "" && RS[i][2] != "" && !RSing[i] && !out) {					
 			cout << "BUFFER: (RS" + to_string(i) << " Dispatch)" << RS[i][1] << " " << RS[i][0] << " " << RS[i][2] << " \n\n";
 			RScyced[i] = RsCycle[basic[RS[i][0]]];
 			RSing[i] = true;
 			break;
 		}
 		else 
-			if (i == 5) 
-				cout << "BUFFER: empty\n\n";
-	}	
+			if (i == 5)
+				cout << "BUFFER: empty\n\n";		
+	}		
 }
 int main() {
 	build();
@@ -202,7 +192,7 @@ int main() {
 		for (int i = 1; i < 6; i++) {
 			if (RScyced[i] > 0) {
 				RScyced[i]--; 
-				if (RScyced[i] == 0) RSOut[i] = true;
+				if (RScyced[i] == 0) RSOut[i] = change = true;
 			}
 			else {
 				//WR
