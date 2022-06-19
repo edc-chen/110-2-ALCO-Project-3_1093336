@@ -11,7 +11,7 @@
   - MUL     : 4 cycles
   - DIV     : 8 cycles
 * **Cycle** 完成後下次 **Cycle** 可以 **Write Result** 
-* **Write Result** 的值下次 **Cycle** 可以使用
+* **Write Result** 的值馬上可以使用
 * **ALU** 空出後下次 **Cycle** 可以 **Dispatch**
 
 
