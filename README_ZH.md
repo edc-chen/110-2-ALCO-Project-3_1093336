@@ -1,7 +1,4 @@
 # Tomasulo's Algorithm
-
-## 詳細程式碼說明連結
-6/19更新
 ## 注意事項
 * 使用的 **instruction** 有 **ADD** , **ADDI** , **SUB** , **MUL** , **DIV** !!務必使用大寫!! 
 * 目前RF上限支援5個
